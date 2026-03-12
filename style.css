@@ -47,11 +47,21 @@ justify-content:center;
 }
 
 .folha{
-width:794px;
-min-height:1123px;
+page-break-inside: avoid;
+}
+
+.folha *{
+page-break-inside: avoid;
+}
+
+.folha{
+width:210mm;
+min-height:297mm;
+padding:20mm;
 background:white;
-padding:30px;
+margin:auto;
 box-shadow:0 10px 30px rgba(0,0,0,.15);
+box-sizing:border-box;
 }
 
 .header{

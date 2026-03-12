@@ -45,7 +45,17 @@ const previewId = input.id.replace("input","preview")
 const preview = document.getElementById(previewId)
 
 if(preview){
+
+if(preview.tagName === "A"){
+
+preview.href = input.value
+
+}else{
+
 preview.textContent = input.value
+
+}
+
 }
 
 /* -------- TECNOLOGIAS -------- */
@@ -194,9 +204,15 @@ baixarPDF.addEventListener("click",()=>{
 
 const folha = document.querySelector(".folha")
 
-if(folha){
-html2pdf().from(folha).save("curriculo.pdf")
+const opt = {
+margin: 0,
+filename: "curriculo.pdf",
+image: { type: "jpeg", quality: 1 },
+html2canvas: { scale: 3 },
+jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
 }
+
+html2pdf().set(opt).from(folha).save()
 
 })
 
