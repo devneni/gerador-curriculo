@@ -208,6 +208,57 @@ width:0%;
 
 }
 
+/* extra tweaks for smaller phones */
+@media (max-width:600px) {
+  .container {
+    padding: 20px 10px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .header img {
+    width: 70px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .links a {
+    font-size: 12px;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .inputstyle {
+    width: 100%;
+  }
+
+  .forms {
+    padding: 15px;
+  }
+
+  .botao-tema {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .previewcurriculo {
+    overflow-x: auto;
+    padding-bottom: 20px;
+  }
+}
+
 
 /* print-specific adjustments */
 @media print {
@@ -222,20 +273,10 @@ width:0%;
     display: none !important;
   }
 
-  /* default light theme when not in dark mode */
-  body:not(.dark) {
-    background: #fff;
-    color: #000;
-  }
-
-  /* preserve dark theme colors in print if dark class is applied */
-  body.dark {
-    background: var(--dark-bg);
-    color: var(--dark-text);
-  }
-  body.dark .folha {
-    background: var(--dark-bg);
-    color: var(--dark-text);
+  /* always use light theme for print */
+  body, body .folha {
+    background: #fff !important;
+    color: #000 !important;
   }
 
   .previewcurriculo {
