@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gerador de Currículo</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<button id="tema" class="botao-tema">🌙</button>
+
+<div class="container">
+
+<div class="forms">
+
+<h1>Gerador de Currículo</h1>
+
+<div class="progress">
+<div id="barraProgresso"></div>
+</div>
+
+<form>
+
+<input id="inputNome" class="inputstyle" type="text" placeholder="Nome">
+
+<input id="inputCargo" class="inputstyle" type="text" placeholder="Cargo desejado">
+
+<input id="inputLinkedin" class="inputstyle" type="text" placeholder="LinkedIn">
+
+<input id="inputGitHub" class="inputstyle" type="text" placeholder="GitHub">
+
+<input id="inputEmail" class="inputstyle" type="email" placeholder="Email">
+
+<input id="inputNumero" class="inputstyle" type="tel" placeholder="Telefone">
+
+<input id="inputTecnologias" class="inputstyle" type="text" placeholder="Tecnologias (React, Node, JS)">
+
+<input id="inputExperiencia" class="inputstyle" type="text" placeholder="Experiência">
+
+<input id="inputCursos" class="inputstyle" type="text" placeholder="Cursos (Ex: Udemy - React - 40h)">
+
+<input id="inputFormacao" class="inputstyle" type="text" placeholder="Formação Acadêmica (Ex: Universidade - Curso - Período)">
+
+
+<button type="button" id="addExp">Adicionar experiência</button>
+
+<input type="file" id="inputFoto">
+
+<button type="button" id="baixarPDF">Baixar PDF</button>
+
+
+
+<button type="button" id="limpar">Limpar currículo</button>
+
+</form>
+
+</div>
+
+<div class="previewcurriculo">
+
+<div class="folha">
+
+<div class="header">
+
+<img id="previewFoto" src="https://via.placeholder.com/100">
+
+<div>
+
+<h1 id="previewNome">Nome</h1>
+
+<p id="previewCargo">Cargo</p>
+
+<div class="links">
+
+<a id="previewLinkedin">LinkedIn</a>
+
+<a id="previewGitHub">GitHub</a>
+
+<a id="previewEmail">Email</a>
+
+<a id="previewNumero">Telefone</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="tecnologias">
+
+<h2>Tecnologias</h2>
+
+<ul id="listaTecnologias"></ul>
+
+</div>
+
+<div class="experiencias">
+
+<h2>Experiências</h2>
+
+<ul id="listaExperiencias"></ul>
+
+</div>
+
+<div class="cursos">
+
+<h2>Cursos</h2>
+
+<ul id="listaCursos"></ul>
+
+</div>
+
+
+<div class="formacao">
+
+<h2>Formação Acadêmica</h2>
+
+<ul id="listaFormacao"></ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
