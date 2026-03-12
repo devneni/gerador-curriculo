@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const inputs = document.querySelectorAll("input[type=text], input[type=email], input[type=tel]")
+// select all data-capturing inputs except file and buttons
+const inputs = document.querySelectorAll("input:not([type=button]):not([type=file])")
 
 const barra = document.getElementById("barraProgresso")
 
@@ -8,6 +9,18 @@ const listaTec = document.getElementById("listaTecnologias")
 const listaExp = document.getElementById("listaExperiencias")
 const listaCursos = document.getElementById("listaCursos")
 const listaFormacao = document.getElementById("listaFormacao")
+
+// helper to populate a list from comma-separated value
+function atualizarLista(valor, listaElem) {
+  if (!listaElem) return;
+  listaElem.innerHTML = "";
+  valor.split(",").forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item.trim();
+    if (li.textContent) listaElem.appendChild(li);
+  });
+}
+
 
 /* ---------------- PROGRESSO ---------------- */
 
@@ -31,13 +44,13 @@ barra.style.width = (preenchidos / inputs.length) * 100 + "%"
 
 inputs.forEach(input=>{
 
-const salvo = localStorage.getItem(input.id)
+  const salvo = localStorage.getItem(input.id)
 
-if(salvo){
-input.value = salvo
-}
+  if(salvo){
+    input.value = salvo
+  }
 
-input.addEventListener("input",()=>{
+  input.addEventListener("input",()=>{
 
 localStorage.setItem(input.id,input.value)
 
@@ -59,67 +72,28 @@ preview.textContent = input.value
 }
 
 /* -------- TECNOLOGIAS -------- */
-
-if(input.id === "inputTecnologias" && listaTec){
-
-listaTec.innerHTML = ""
-
-const tecs = input.value.split(",")
-
-tecs.forEach(t=>{
-
-const li = document.createElement("li")
-li.textContent = t.trim()
-
-listaTec.appendChild(li)
-
-})
-
+if (input.id === "inputTecnologias") {
+  atualizarLista(input.value, listaTec);
 }
 
 /* -------- CURSOS -------- */
-
-if(input.id === "inputCursos" && listaCursos){
-
-listaCursos.innerHTML = ""
-
-const cursos = input.value.split(",")
-
-cursos.forEach(c=>{
-
-const li = document.createElement("li")
-li.textContent = c.trim()
-
-listaCursos.appendChild(li)
-
-})
-
+if (input.id === "inputCursos") {
+  atualizarLista(input.value, listaCursos);
 }
 
 /* -------- FORMAÇÃO -------- */
-
-if(input.id === "inputFormacao" && listaFormacao){
-
-listaFormacao.innerHTML = ""
-
-const formacoes = input.value.split(",")
-
-formacoes.forEach(f=>{
-
-const li = document.createElement("li")
-li.textContent = f.trim()
-
-listaFormacao.appendChild(li)
-
-})
-
+if (input.id === "inputFormacao") {
+  atualizarLista(input.value, listaFormacao);
 }
 
 atualizarProgresso()
 
 })
 
-})
+});
+
+// initialize progress bar based on restored values
+atualizarProgresso();
 
 /* ---------------- FOTO ---------------- */
 
@@ -166,18 +140,20 @@ inputExp.value = ""
 
 const temaBtn = document.getElementById("tema")
 
-if(temaBtn){
-
-temaBtn.addEventListener("click",()=>{
-
-document.body.classList.toggle("dark")
-
-temaBtn.textContent =
-document.body.classList.contains("dark") ? "☀️" : "🌙"
-
-})
-
+// restore previously selected theme
+if (localStorage.getItem("tema") === "dark") {
+  document.body.classList.add("dark");
 }
+
+if (temaBtn) {
+  temaBtn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  temaBtn.addEventListener("click", () => {
+    const isDark = document.body.classList.toggle("dark");
+    temaBtn.textContent = isDark ? "☀️" : "🌙";
+    localStorage.setItem("tema", isDark ? "dark" : "light");
+  });
+}
+
 
 /* ---------------- LIMPAR ---------------- */
 
@@ -198,24 +174,41 @@ location.reload()
 
 const baixarPDF = document.getElementById("baixarPDF")
 
-if(baixarPDF){
+if (baixarPDF) {
+  baixarPDF.addEventListener("click", () => {
+    // simple validation: require at least name or cargo
+    const nome = document.getElementById("previewNome").textContent.trim();
+    const cargo = document.getElementById("previewCargo").textContent.trim();
+    if (!nome && !cargo) {
+      alert("Preencha pelo menos o nome ou cargo antes de baixar o PDF.");
+      return;
+    }
 
-baixarPDF.addEventListener("click",()=>{
+    const folha = document.querySelector(".folha");
 
-const folha = document.querySelector(".folha")
+    // make sure any responsive transform is removed
+    folha.style.transform = "none";
 
-const opt = {
-margin: 0,
-filename: "curriculo.pdf",
-image: { type: "jpeg", quality: 1 },
-html2canvas: { scale: 3 },
-jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-}
+    // apply a temporary class to hide form controls via CSS
+    document.body.classList.add("print-mode");
 
-html2pdf().set(opt).from(folha).save()
+    const opt = {
+      margin: [10, 10, 10, 10], // mm top/right/bottom/left
+      filename: "curriculo.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      pagebreak: { mode: ["css", "legacy"] }
+    };
 
-})
-
+    html2pdf()
+      .set(opt)
+      .from(folha)
+      .save()
+      .then(() => {
+        document.body.classList.remove("print-mode");
+      });
+  });
 }
 
 });
