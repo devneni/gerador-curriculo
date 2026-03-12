@@ -124,16 +124,29 @@ font-size:18px;
 cursor:pointer;
 }
 
+.dark .botao-tema {
+  /* slightly lighter button so it doesn't disappear */
+  background: #374151;
+}
+
 .progress{
 height:6px;
 background:#ddd;
 margin-bottom:15px;
 }
 
+.dark .progress {
+  background: #374151;
+}
+
 #barraProgresso{
 height:100%;
 background: var(--primary);
 width:0%;
+}
+
+.dark #barraProgresso {
+  background: var(--primary);
 }
 
 .dark{
@@ -143,11 +156,38 @@ width:0%;
 
 .dark .forms{
   background: #1e293b;
+  box-shadow: 0 10px 25px rgba(0,0,0,.5);
 }
 
 .dark .folha{
   background: #1e293b;
   color: var(--dark-text);
+}
+
+/* ensure form controls are legible in dark mode */
+.dark input,
+.dark textarea,
+.dark select {
+  background: #334155;
+  color: var(--dark-text);
+  border: 1px solid #475569;
+}
+
+.dark .inputstyle {
+  background: #334155;
+  color: var(--dark-text);
+  border: 1px solid #475569;
+}
+
+.dark button {
+  /* keep primary buttons bright, adjust if needed */
+  background: var(--primary);
+  color: white;
+}
+
+/* links should stand out against dark backgrounds */
+.dark .links a {
+  color: var(--primary);
 }
 
 @media (max-width:900px){
