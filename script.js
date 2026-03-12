@@ -193,10 +193,10 @@ if (baixarPDF) {
     document.body.classList.add("print-mode");
 
     const opt = {
-      margin: [10, 10, 10, 10], // mm top/right/bottom/left
+      margin: [0, 0, 0, 0], // zero margins to align content at top
       filename: "curriculo.pdf",
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       pagebreak: { mode: ["css", "legacy"] }
     };
