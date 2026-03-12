@@ -222,9 +222,20 @@ width:0%;
     display: none !important;
   }
 
-  body {
+  /* default light theme when not in dark mode */
+  body:not(.dark) {
     background: #fff;
     color: #000;
+  }
+
+  /* preserve dark theme colors in print if dark class is applied */
+  body.dark {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+  }
+  body.dark .folha {
+    background: var(--dark-bg);
+    color: var(--dark-text);
   }
 
   .previewcurriculo {
