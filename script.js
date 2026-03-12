@@ -189,6 +189,12 @@ if (baixarPDF) {
     // make sure any responsive transform is removed
     folha.style.transform = "none";
 
+    // force light background/color in case dark theme is active
+    const prevBg = folha.style.background;
+    const prevColor = folha.style.color;
+    folha.style.background = "#fff";
+    folha.style.color = "#000";
+
     // apply a temporary class to hide form controls via CSS
     document.body.classList.add("print-mode");
 
@@ -207,6 +213,9 @@ if (baixarPDF) {
       .save()
       .then(() => {
         document.body.classList.remove("print-mode");
+        // restore any inline styles we changed earlier
+        folha.style.background = prevBg;
+        folha.style.color = prevColor;
       });
   });
 }

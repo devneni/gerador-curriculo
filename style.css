@@ -279,6 +279,13 @@ width:0%;
     color: #000 !important;
   }
 
+  /* ensure page content is reset when generating PDF via html2canvas */
+  body.print-mode .folha,
+  body.print-mode .folha * {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
   .previewcurriculo {
     transform: none !important;
   }
