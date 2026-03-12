@@ -73,8 +73,8 @@ page-break-inside: avoid;
 
 .folha{
   width:210mm;
-  /* let the content decide height on screen; printed pages will still obey page-break rules */
-  /* min-height:297mm; */
+  height:297mm; /* fixed A4 height */
+  /* content will scroll inside if longer on screen; print layout is fixed */
   padding:20mm;
   background:white;
   margin:auto;
@@ -188,6 +188,24 @@ width:0%;
 /* links should stand out against dark backgrounds */
 .dark .links a {
   color: var(--primary);
+}
+
+/* ensure printed pages are A4 and don't resize */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  body {
+    background: none;
+  }
+  .folha {
+    width:210mm !important;
+    height:297mm !important;
+    margin:0;
+    page-break-after: always;
+  }
 }
 
 @media (max-width:900px){
